@@ -4,8 +4,6 @@ Thymeleaf is the HTML template engine we're using in this class, which means tha
 
 The way that Thymeleaf applies the data model to the template is based on the Thymeleaf attributes we add to the template, like th:text from the previous lecture on MVC. These attributes can have complex expressions as their values, which are processed by Thymeleaf in the context of the data model provided. In the next video, we'll look at some of the effects those attributes and expressions can achieve!
 
-For the full lecture sample code from this lecture, click here
-
 In addition to setting text values, we can use Thymeleaf attributes to perform basic control flow in our templates. The main two types of control flow in templates are iteration and conditional rendering.
 
 Iteration in Thymeleaf templates works very similarly to an enhanced for-loop in Java. The main attribute used in template iteration is th:each, and its use looks like this:
