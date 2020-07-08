@@ -1,7 +1,9 @@
 MVC is an acronym that stands for Model-View-Controller, and it's a common software pattern for user interface design. Traditionally, it divides the roles of components in an app into three layers:
 
 the **Model**, which is responsible for maintaining the state of an application,
+
 the **View**, which is responsible for displaying the UI to the user,
+
 and the **Controller**, which is responsible for processing user actions (sent from the View) to update the Model, and for forwarding those updates back to the View
 
 MVC is an abstract pattern, though, and every library implements it differently. Spring MVC is built around the browser as a platform, and it organizes these roles like this:
