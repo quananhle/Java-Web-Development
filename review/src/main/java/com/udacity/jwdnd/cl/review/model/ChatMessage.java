@@ -1,31 +1,26 @@
 package com.udacity.jwdnd.cl.review.model;
 
 public class ChatMessage {
-    private String messageID;
+    private Integer messageId;
     private String username;
-    private String messages;
+    private String messageText;
 
-    public String getMessageID() {
-        return messageID;
+    public Integer getMessageId() {
+        return messageId;
     }
-
-    public void setMessageID(String messageID) {
-        this.messageID = messageID;
+    public void setMessageId(Integer messageId) {
+        this.messageId = messageId;
     }
-
     public String getUsername() {
         return username;
     }
-
-    public String getMessages() {
-        return messages;
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }
-
-    public void setMessages(String messages) {
-        this.messages = messages;
+    public String getMessageText() {
+        return messageText;
+    }
+    public void setMessageText(String messageText) {
+        this.messageText = messageText;
     }
 }

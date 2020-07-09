@@ -1,36 +1,36 @@
 package com.udacity.jwdnd.cl.review.model;
 
 public class User {
-    private Integer userId;
-    private String userName;
+    private Integer userID;
+    private String username;
     private String salt;
-    private String passWord;
+    private String password;
     private String firstName;
     private String lastName;
 
-    public User(Integer userId, String userName, String salt, String passWord, String firstName, String lastName) {
-        this.userId = userId;
-        this.userName = userName;
+    public User(Integer userID, String username, String salt, String password, String firstName, String lastName) {
+        this.userID = userID;
+        this.username = username;
         this.salt = salt;
-        this.passWord = passWord;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
     public Integer getUserId() {
-        return userId;
+        return userID;
     }
 
     public void setUserId(Integer userId) {
-        this.userId = userId;
+        this.userID = userId;
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.username = userName;
     }
 
     public String getSalt() {
@@ -42,11 +42,11 @@ public class User {
     }
 
     public String getPassWord() {
-        return passWord;
+        return password;
     }
 
     public void setPassWord(String passWord) {
-        this.passWord = passWord;
+        this.password = passWord;
     }
 
     public String getFirstName() {

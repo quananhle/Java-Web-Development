@@ -20,8 +20,8 @@ public interface MessagesMapper {
     @Select("SELECT * FROM MESSAGES")
     List<ChatMessage> getMessages();
 
-    @Insert("INSERT INTO MESSAGES (username, messages) VALUES(#{username}, #{messages})")
-    @Options(useGeneratedKeys = true, keyProperty = "messageID")
+    @Insert("INSERT INTO MESSAGES (username, messagetext) VALUES(#{username}, #{messageText})")
+    @Options(useGeneratedKeys = true, keyProperty = "messageId")
     int insertMessage(ChatMessage chatMessage);
 
 }
