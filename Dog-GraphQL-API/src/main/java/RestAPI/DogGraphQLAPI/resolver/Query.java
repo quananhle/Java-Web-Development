@@ -17,13 +17,13 @@ public class Query implements GraphQLQueryResolver {
     public Iterable<Dog> findAllDogs() {
         return dogRepository.findAll();
     }
-    public Dog findDogById(Long ID) {
-        Optional<Dog> optionalDog = dogRepository.findById(ID);
+    public Dog findDogById(Long id) {
+        Optional<Dog> optionalDog = dogRepository.findById(id);
         if (optionalDog.isPresent()) {
             return optionalDog.get();
         }
         else {
-            throw new DogNotFoundException("DOG NOT FOUND", ID);
+            throw new DogNotFoundException("DOG NOT FOUND", id);
         }
     }
 }

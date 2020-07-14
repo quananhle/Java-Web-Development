@@ -20,57 +20,54 @@ public class Dog {
      *     Name
      *     Breed
      *     Origin
-     *     Owner
      **/
     private String name;
     private String breed;
     private String origin;
-    private String owner;
 
-    //non-default constructors
-    public Dog(Long generatedID, String dogName, String dogBreed, String dogOrigin, String dogOwner) {
-        this.ID = generatedID;
-        this.name = dogName;
-        this.breed = dogBreed;
-        this.origin = dogOrigin;
-        this.owner = dogOwner;
+    public Dog(Long id, String name, String breed, String origin) {
+        this.ID = id;
+        this.name = name;
+        this.breed = breed;
+        this.origin = origin;
     }
-    public Dog(String dogName, String dogBreed) {
-        this.name = dogName;
-        this.breed = dogBreed;
+
+    public Dog(String name, String breed) {
+        this.name = name;
+        this.breed = breed;
     }
-    //default constructor
+
     public Dog() {}
 
-    //setter and getter methods
-    public void setID(Long ID) {
-        this.ID = ID;
-    }
-    public Long getID() {
+    public Long getId() {
         return ID;
     }
-    public void setName(String name) {
-        this.name = name;
+
+    public void setId(Long id) {
+        this.ID = id;
     }
+
     public String getName() {
         return name;
     }
-    public void setBreed(String breed) {
-        this.breed = breed;
+
+    public void setName(String name) {
+        this.name = name;
     }
+
     public String getBreed() {
         return breed;
     }
-    public void setOrigin(String origin) {
-        this.origin = origin;
+
+    public void setBreed(String breed) {
+        this.breed = breed;
     }
+
     public String getOrigin() {
         return origin;
     }
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-    public String getOwner() {
-        return owner;
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 }

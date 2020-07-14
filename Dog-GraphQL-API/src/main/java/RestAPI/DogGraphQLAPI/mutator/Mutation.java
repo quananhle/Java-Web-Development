@@ -2,6 +2,7 @@ package RestAPI.DogGraphQLAPI.mutator;
 
 import RestAPI.DogGraphQLAPI.entity.Dog;
 import RestAPI.DogGraphQLAPI.repository.DogRepository;
+import RestAPI.DogGraphQLAPI.service.BreedNotFoundException;
 import RestAPI.DogGraphQLAPI.service.DogNotFoundException;
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import org.springframework.stereotype.Component;
@@ -18,10 +19,10 @@ public class Mutation implements GraphQLMutationResolver {
         boolean isDeleted = false;
         Iterable<Dog> allDogs = dogRepository.findAll();
         //Loop through all dogs to check the breeds
-        if (Dog dog : allDogs) {
+        for (Dog dog : allDogs) {
             if (dog.getBreed().equals(breed)) {
                 //Delete if breed is found
-                dogRepository.delete(d);
+                dogRepository.delete(dog);
                 isDeleted = true;
             }
         }
