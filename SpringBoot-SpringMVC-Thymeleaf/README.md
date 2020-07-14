@@ -20,14 +20,18 @@
     ![Alt text](pictures/Spring-IOC.png?raw=true "Spring-IOC")
         
     ![Alt text](pictures/Onion-Architecture.png?raw=true "Onion-Architecture")
-    
+     
 * ```Spring MVC``` and ```Thymeleaf```, an HTML template engine. ```Spring controllers```, ```Thymeleaf``` template attributes, and connecting the two with the MVC pattern.
 
     ![Alt text](pictures/SpringMVC-Thymeleaf.png?raw=true "Spring-MVC-Thymeleaf")
+    
+    ![Alt text](pictures/l3-7-big-picture.png?raw=true "Relationship-Between-Spring-MVC-and-Client")     
 
 * Connecting your Spring app to a database and securing it with Spring Security. We'll cover the basics of ORM and MyBatis, an ORM tool for Java. We'll use the database to store user credentials securely and use them to authenticate users with Spring Security.
 
     ![Alt text](pictures/DataPersistence-MyBatis.png?raw=true "Data-Persistence")
+
+    ![Alt text](pictures/l4-07-big-picture.png?raw=true "Application-Growing-Layers")
 
 * Testing and web browser automation with ```Selenium```. We'll cover how to set up and run tests with JUnit, how a web driver works, and how to simulate user actions in the browser with Selenium. We'll also discuss page objects, Selenium's powerful abstraction tool.
 
