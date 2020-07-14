@@ -2,6 +2,8 @@
 
 * Basics of Java server architecture, dependency management in Java, and how Spring integrates with both.
 
+    ![Alt text](pictures/Java-Web-Development.png?raw=true "Java-Web-Development")
+
         Web servers and how early servers were single-function programs that could host files, serve web pages, and expose databases to external connections.
         Java application servers, which provide a pluggable architecture for applications to interface with, granting access to shared resources and multi-threaded request processing.
         Spring framework, a family of libraries that build on the abstractions of the application server to support many third-party integrations to provide easy abstractions for common web development tasks.
