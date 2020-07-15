@@ -14,7 +14,7 @@ import javax.persistence.Id;
 public class Dog {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long ID;
+    private Long id;
     /**
      * The dog have three attributes:
      *     Name
@@ -29,7 +29,7 @@ public class Dog {
 
     //non-default constructors
     public Dog(Long generatedID, String dogName, String dogBreed, String dogOrigin, String dogOwner) {
-        this.ID = generatedID;
+        this.id = generatedID;
         this.name = dogName;
         this.breed = dogBreed;
         this.origin = dogOrigin;
@@ -43,11 +43,11 @@ public class Dog {
     public Dog() {}
 
     //setter and getter methods
-    public void setID(Long ID) {
-        this.ID = ID;
+    public void setID(Long id) {
+        this.id = id;
     }
     public Long getID() {
-        return ID;
+        return id;
     }
     public void setName(String name) {
         this.name = name;
@@ -74,4 +74,3 @@ public class Dog {
         return owner;
     }
 }
-
