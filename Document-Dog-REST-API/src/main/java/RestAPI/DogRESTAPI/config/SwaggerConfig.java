@@ -28,8 +28,10 @@ public class SwaggerConfig {
                 "Dog REST API",
                 "This API returns a list of dogs.",
                 "1.0",
-                "http://www.udacity.com/tos",
-                new Contact("Udacious Student", "www.udacity.com", "myeaddress@udacity.com"),
-                "License of API", "http://www.udacity.com/license", Collections.emptyList());
+                "https://github.com/Quananhle/Java-Web-Developer",
+                new Contact("Quan-Anh-Le", "https://github.com/Quananhle", "quananhle@icloud.com"),
+                "License of API",
+                "https://github.com/Quananhle/Java-Web-Developer/tree/master/Document-Dog-REST-API",
+                Collections.emptyList());
     }
 }
