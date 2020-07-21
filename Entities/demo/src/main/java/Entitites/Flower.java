@@ -12,7 +12,7 @@ public class Flower {
     @Id
     @GeneratedValue
     private Long id;
-    @Nationalized
+    @Nationalized                      //the flower names support international language characters
     private String name;
     private String color;
     @Column(precision=12, scale=4)     //price is stored as a DECIMAL column with 12 precision and 4 decimal places
