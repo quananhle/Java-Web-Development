@@ -5,9 +5,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-@Table(name="" )
 public class Delivery {
     @Id
     @GeneratedValue
@@ -20,14 +20,8 @@ public class Delivery {
     @Type(type="yes_no")                                 //show up as ‘Y’ or ‘N’ in the database if completed
     private boolean completed;
 
-    //non-default constructor
-    public Delivery(Long id, String name, String address, LocalDateTime deliveryTime, boolean completed) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.deliveryTime = deliveryTime;
-        this.completed = completed;
-    }
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "delivery")
+    private List<Plant> plants;
 
     //getter and setter
     public Long getId() {
@@ -63,5 +57,12 @@ public class Delivery {
     }
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public List<Plant> getPlants() {
+        return plants;
+    }
+    public void setPlants(List<Plant> plants) {
+        this.plants = plants;
     }
 }

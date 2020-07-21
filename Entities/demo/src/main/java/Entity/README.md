@@ -67,3 +67,22 @@ all subclasses. Cannot support Not Null column constraints because columns must 
 A query for the parent class that returns elements of all subclass types.
 
 ![Alt text](data/SingleTableInheritance.png?raw=true "Single Table Inheritance")
+
+#### JOINED
+
+Creates a table for the parent class and each subclass. The subclass tables only have fields unique to their class. 
+Supports polymorphic queries by UNIONing subclass tables. Uses the least space of the solutions that allow Not Null columns.
+
+#### TABLE_PER_CLASS
+
+Creates a table for the parent class and each subclass. The subclass tables have all fields from the parent class as 
+well as fields unique to their class. Supports polymorphic queries by UNIONing subclass tables, but does not require 
+any UNION to access superclass fields on non-polymorphic queries.
+
+#### Mapped Superclass
+
+This is selected by using the ```@MappedSuperclass``` annotation on the parent class instead of ```@Entity```. 
+It creates a table per class just like TABLE_PER_CLASS, but there is no superclass table. It does not support 
+polymorphic queries, but never requires UNIONS to query subclasses.
+
+![Alt text](data/JoinedTable.png?raw=true "Joined and Table Per Class Inheritance Strategies")
