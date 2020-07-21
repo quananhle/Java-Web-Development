@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
     @GetMapping
     public String test() {
-        return "Data Structures and Persistence";
+        return "Demo for Data Structures and Persistence";
     }
 }
