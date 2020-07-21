@@ -1,4 +1,4 @@
-##Entity Design
+## Entity Design
 
 Programs can represent all kinds of ideas, so the tools we use to describe our data must be flexible. 
 The variables, which are the building blocks of our Entities, are like words that can mean different things to different 
@@ -6,22 +6,22 @@ people. We will use Entities to communicate ideas to our database.
 
 ![Alt text](demo/src/main/resources/entities-design.png?raw=true "Entities Design")
 
-####Java Persistence API (JPA)
+#### Java Persistence API (JPA)
 
 A specification describing how to manage relational data.
 
-####POJO or "Plain Old Java Object"
+#### POJO or "Plain Old Java Object"
 
 A Java object that contains data, but no methods to describe behavior.
 
-####Entity Types
+#### Entity Types
 
 Java classes that describe a collection of data.
 
 * Contain Data only, no behavior
 * Represented by a table in the database
 
-####Value Types
+#### Value Types
 
 The data inside an Entity.
 
@@ -29,10 +29,11 @@ The data inside an Entity.
 * Classes that only represent a single piece of data, like BigInteger or LocalDate
 * Represented by a column in the database
 
-####@Entity and @Table Annotations
+#### @Entity and @Table Annotations
 
 ![Alt text](demo/src/main/resources/@Entity@Table.png?raw=true "Entity and Table Annotations")
-######@Entity and @Table Annotations Example
+
+###### @Entity and @Table Annotations Example
 
 To identify which Java classes we wish to consider as Entities, we added the ```@Entity``` annotation before the class 
 name. This informs Hibernate that this class should be stored in the database. Each Entity class will be associated with 
@@ -47,7 +48,7 @@ One additional point to remember about Entity classes is that they must provide 
 Java automatically creates one for you if no constructor is specified, but if you create one or more of your own 
 constructors for the class, you’ll also have to make sure to include a no-arg version as well.
 
-###Basic Types
+### Basic Types
 
 Types map a single database column to a single, non-aggregated Java type. Here are some examples of basic types:
 
@@ -66,21 +67,22 @@ lists of primitives into a single column. Doing so violates First Normal Form of
 relational functioning.
 
 ![Alt text](demo/src/main/resources/Map.png?raw=true "Mapping")
-######Basic Types should Map to Single Values, not Composite Values
 
-####Serialization
+###### Basic Types should Map to Single Values, not Composite Values
+
+#### Serialization
 
 Transforming your data into a format that can be stored and reconstructed later.
 
-####First Normal form
+#### First Normal form
 
 Each attribute of a table contains only atomic values.
 
-####Atomic
+#### Atomic
 
 Representing a single piece of data; indivisible.
 
-###Identifiers
+### Identifiers
 
 All Entities must define an identifier that uniquely identifies them. We express this by using the ```@Id``` annotation.
 
