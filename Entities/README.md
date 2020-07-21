@@ -47,5 +47,39 @@ One additional point to remember about Entity classes is that they must provide 
 Java automatically creates one for you if no constructor is specified, but if you create one or more of your own 
 constructors for the class, you’ll also have to make sure to include a no-arg version as well.
 
+####Basic Types
+
+Types map a single database column to a single, non-aggregated Java type. Here are some examples of basic types:
+
+|Java                  |JDBC    |Hibernate type    |Registry Key|
+|---                   |---     |---               |---    |
+|java.lang.String      |VARCHAR |StringType        |string |
+|java.lang.String      |NVARCHAR|StringNVarcharType|nstring|
+|int, java.lang.Integer|INTEGER |IntegerTypes      |int    |
+|long, java.lang.Long  |BIGINT  |LongType          |long   |
+
+![Alt text](demo/src/main/resources/@TypeAnnotation.png?raw=true "@Type Annotation")
+An Example of using the ```@Type``` Annotation to Force a Typing
+
+Each BasicType should only map a single value to a single column in the database. Do not attempt to serialize objects or 
+lists of primitives into a single column. Doing so violates First Normal Form of database design, preventing standard 
+relational functioning.
+
+![Alt text](demo/src/main/resources/Map.png?raw=true "Mapping")
+######Basic Types should Map to Single Values, not Composite Values
+
+####Serialization
+
+Transforming your data into a format that can be stored and reconstructed later.
+
+####First Normal form
+
+Each attribute of a table contains only atomic values.
+
+####Atomic
+
+Representing a single piece of data; indivisible.
+
+
 
 
