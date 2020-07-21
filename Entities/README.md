@@ -9,3 +9,43 @@ people. We will use Entities to communicate ideas to our database.
 ####Java Persistence API (JPA)
 
 A specification describing how to manage relational data.
+
+####POJO or "Plain Old Java Object"
+
+A Java object that contains data, but no methods to describe behavior.
+
+####Entity Types
+
+Java classes that describe a collection of data.
+
+* Contain Data only, no behavior
+* Represented by a table in the database
+
+####Value Types
+
+The data inside an Entity.
+
+* Primitives like int, boolean, char
+* Classes that only represent a single piece of data, like BigInteger or LocalDate
+* Represented by a column in the database
+
+####@Entity and @Table Annotations
+
+![Alt text](demo/src/main/resources/@Entity@Table.png?raw=true "Entity and Table Annotations")
+######@Entity and @Table Annotations Example
+
+To identify which Java classes we wish to consider as Entities, we added the ```@Entity``` annotation before the class 
+name. This informs Hibernate that this class should be stored in the database. Each Entity class will be associated with 
+a table of the same name, or you can specify your own table name using the ```@Table``` annotation at the class level. 
+The attributes of the classes automatically become columns of the same name, and we can change the names and properties 
+of the columns with the ```@Column``` annotation.
+
+As we can see in this example, we’ve added the ```@Entity``` annotation to our ```Person``` class, and we have specified 
+that the ```favoriteComposer``` field should be stored in a column called “composer”.
+
+One additional point to remember about Entity classes is that they must provide a public or protected no-arg constructor. 
+Java automatically creates one for you if no constructor is specified, but if you create one or more of your own 
+constructors for the class, you’ll also have to make sure to include a no-arg version as well.
+
+
+
