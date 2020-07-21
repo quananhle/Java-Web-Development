@@ -1,6 +1,8 @@
 package Entity;
 // Uses InheritanceType.JOINED to store shared fields in 'plant' and unique fields in subclass tables
 
+import View.Views;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
@@ -13,8 +15,10 @@ public class Plant {
     @Id
     @GeneratedValue
     private Long id;
+    @JsonView(Views.Public.class)       //getFilteredPlant only returns name
     @Nationalized                       //the plant names support international language characters
     private String name;
+    @JsonView(Views.Public.class)       //getFilteredPlant only returns price
     @Column(precision=12, scale=4)      //price is stored as a DECIMAL column with 12 precision and 4 decimal places
     private BigDecimal price;
 

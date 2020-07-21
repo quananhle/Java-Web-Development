@@ -86,3 +86,56 @@ It creates a table per class just like TABLE_PER_CLASS, but there is no supercla
 polymorphic queries, but never requires UNIONS to query subclasses.
 
 ![Alt text](data/JoinedTable.png?raw=true "Joined and Table Per Class Inheritance Strategies")
+
+#### Entity Role in Multitier Architecture
+
+Entities belong in the Data layer, as their primary role is bridging the communication between our Application layer and the database. They also serve as components of business logic, making them relevant components in our controller and service layers.
+
+The Application layer should not communicate with the database, and the Data layer should not execute business logic.
+
+![Alt text](data/MultitierDesign.png?raw=true "Multi-tier Design")
+
+#### Multitier Architecture Advantages
+##### Maintenance
+
+* Centralizes access to your data source
+* Reduces time needed to make changes to Entity interactions
+* Reduces amount of code each developer needs to understand
+
+##### Performance
+
+* Allows application layers to easily be separated into modules
+* Reduces application size
+* Enables scaling of independent components
+* Supports future architecture deployment
+
+##### Security
+
+* Able to secure each tier with different permissions
+* Reduces redundant authentication in other tiers
+
+#### Data Transfer Objects (DTOs)
+
+Data structures designed to represent the needs of the front end.
+
+#### DTO Summary
+
+* Simplify and document interaction between front end and Controller.
+* Conceal database structures.
+* Limit the amount of data exchanged.
+* Customize display data to meet the needs of the front end.
+
+![Alt text](data/DTO.png?raw=true "Differences between DTO and @JSONView")
+
+#### JSONView Annotations
+
+Annotation that filters which Entity data is visible to the Presentation layer.
+
+#### ```@JSONView``` Summary
+
+    Quickly specify which parts of Entities should be visible to which consumer.
+    Often a simple choice when controlling full stack.
+    Not as helpful when you need to combine data from multiple Entities.
+    Can require Entity updates if front end needs change.
+    Often grouped together in a Views class, containing interfaces such as ‘Public’, ‘Private’, or interfaces named for specific endpoint recipients.
+
