@@ -1,4 +1,4 @@
-###Entity Design
+##Entity Design
 
 Programs can represent all kinds of ideas, so the tools we use to describe our data must be flexible. 
 The variables, which are the building blocks of our Entities, are like words that can mean different things to different 
@@ -47,7 +47,7 @@ One additional point to remember about Entity classes is that they must provide 
 Java automatically creates one for you if no constructor is specified, but if you create one or more of your own 
 constructors for the class, you’ll also have to make sure to include a no-arg version as well.
 
-####Basic Types
+###Basic Types
 
 Types map a single database column to a single, non-aggregated Java type. Here are some examples of basic types:
 
@@ -80,6 +80,30 @@ Each attribute of a table contains only atomic values.
 
 Representing a single piece of data; indivisible.
 
+###Identifiers
 
+All Entities must define an identifier that uniquely identifies them. We express this by using the ```@Id``` annotation.
 
+```java
+@Entity
+public class Person {
+    @Id
+    @GeneratedValue
+    Long id;
+   /* rest of class */
+}
+```
+Valid identifier types are:
+
+• Any Java primitive type
+
+• Any primitive wrapper type (like ```Long```, or ```Boolean```)
+
+• A ```String```
+
+• ```java.sql.Date``` or ```java.util.Date```
+
+• ```java.math.BigDecimal``` or ```java.math.BigInteger```
+
+The ```@GeneratedValue``` annotation causes this value to be assigned automatically.
 
