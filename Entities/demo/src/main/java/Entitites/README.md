@@ -1,4 +1,4 @@
-![Alt text](demo/src/main/resources/@Embeddable@IdClass.png?raw=true "Comparison of @Embeddable and @IdClass Composite Keys")
+![Alt text](demo/src/main/java/Entitites/data/@Embeddable@IdClass.png?raw=true "Comparison of @Embeddable and @IdClass Composite Keys")
 
 #### Ways to Associate Data
 
@@ -6,7 +6,7 @@
     Embeddables: Add their attributes as columns in the containing Entity’s table.
     Entities: Become new tables which relate to a containing entity by a Join Column.
 
-![Alt text](demo/src/main/resources/OnetoOne.png?raw=true "OneToOne Data Contained in Parent Table")
+![Alt text](demo/src/main/java/Entitites/data/OnetoOne.png?raw=true "OneToOne Data Contained in Parent Table")
 
 #### Association Reciprocity
 
