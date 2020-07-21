@@ -1,4 +1,4 @@
-package Entitites;
+package Entity;
 //A Flower for the company to sell
 import org.hibernate.annotations.Nationalized;
 

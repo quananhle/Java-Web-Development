@@ -1,4 +1,4 @@
-package Entitites;
+package Entity;
 
 import org.hibernate.annotations.Nationalized;
 import org.hibernate.annotations.Type;
