@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@NamedQuery(name="Delivery.findByName", query="select d from Delivery d where d.name = :name" )
 @Entity
 public class Delivery {
     @Id
@@ -20,7 +21,7 @@ public class Delivery {
     @Type(type="yes_no")                                 //show up as ‘Y’ or ‘N’ in the database if completed
     private boolean completed;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "delivery")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "delivery", cascade = CascadeType.ALL)
     private List<Plant> plants;
 
     //getter and setter
