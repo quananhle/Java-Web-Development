@@ -72,4 +72,89 @@ public Long addPersonInsert(PersonData personData) {
 }
 ```
 
+##### ```@Transactional```
 
+Many operations in DAOs involve combining multiple queries into a single request, so transaction management is just as important as before! Fortunately, JdbcTemplate provides a Spring-managed connection, so we can simply use @Transactional to set our transaction boundaries by method just like we did when using Hibernate.
+Multiple Database Requests Occurring Inside Transaction
+
+![Alt text](1.png?raw=true "Multiple Database Requests Occurring Inside Transaction")
+
+Let’s look at an example implementation of CandyDAO. We’ve organized our queries and made reusable code into constants. You can see that our implementation methods are actually quite simple!
+
+```java
+@Repository
+@Transactional
+public class CandyDAOImpl implements CandyDAO {
+
+   @Autowired
+   NamedParameterJdbcTemplate jdbcTemplate;
+
+   //we can avoid some typo-based errors by using string constants
+   private static final String CANDY_ID = "candyId";
+   private static final String DELIVERY_ID = "deliveryId";
+
+   private static final String SELECT_ALL_CANDY =
+           "SELECT * FROM candy";
+
+   private static final String INSERT_DELIVERY =
+           "INSERT INTO candy_delivery (candy_id, delivery_id) " +
+           "VALUES (:" + CANDY_ID + ", :" + DELIVERY_ID + ")";
+
+   private static final String FIND_CANDY_BY_DELIVERY =
+           "SELECT c.* FROM candy_delivery AS cd " +
+           "JOIN candy AS c on c.id = cd.candy_id " +
+           "WHERE cd.delivery_id = :" + DELIVERY_ID;
+
+   private static final RowMapper<CandyData> candyDataRowMapper =
+           new BeanPropertyRowMapper<>(CandyData.class);
+
+   @Override
+   public List<CandyData> list() {
+       //no parameters, so we can use a version of .query that only takes two arguments
+       return jdbcTemplate.query(SELECT_ALL_CANDY, candyDataRowMapper);
+   }
+
+   @Override
+   public void addToDelivery(Long candyId, Long deliveryid) {
+       //we don't have an object of the right type to use SimpleJdbcInsert, so we'll just do a normal .update
+       jdbcTemplate.update(INSERT_DELIVERY,
+               new MapSqlParameterSource()
+                       .addValue(CANDY_ID, candyId)
+                       .addValue(DELIVERY_ID, deliveryid));
+   }
+
+   @Override
+   public List<CandyData> findByDelivery(Long deliveryId) {
+       return jdbcTemplate.query(FIND_CANDY_BY_DELIVERY,
+               new MapSqlParameterSource(DELIVERY_ID, deliveryId),
+               candyDataRowMapper);
+   }
+}
+```
+
+#### JPA vs. JDBC
+
+#### JPA
+
+* Convenient
+* Table relationships defined in Java
+* SQL is generated
+
+#### JDBC
+
+* Can be faster
+* Table relationships defined in Database
+* SQL is written
+
+Generally, optimizing for convenience will save you more time in the long run. If you need to improve the performance of specific operations, there are a few properties you can use to help measure performance. This will cause Hibernate to report on the number of JDBC Statements prepared and executed during each session, as well as their time costs.
+
+```xml
+spring.jpa.properties.hibernate.generate_statistics=true
+logging.level.org.hibernate.stat=DEBUG
+```
+
+For Hibernate 5.4.5 and later you can also use this property to cause any single query longer than the specified duration to print a message to the log.
+
+```xml
+hibernate.session.events.log.LOG_QUERIES_SLOWER_THAN_MS=25
+```
