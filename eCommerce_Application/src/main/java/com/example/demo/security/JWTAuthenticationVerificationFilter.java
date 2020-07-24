@@ -25,7 +25,7 @@ public class JWTAuthenticationVerificationFilter extends BasicAuthenticationFilt
         throws IOException, ServletException {
         String header = request.getHeader(SecurityConstants.HEADER_STRING);
 
-        if (header = null || !header.startsWith(SecurityConstants.TOKEN_PREFIX)) {
+        if (header == null || !header.startsWith(SecurityConstants.TOKEN_PREFIX)) {
             filterChain.doFilter(request, response);
             return;
         }
