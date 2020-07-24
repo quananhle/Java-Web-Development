@@ -52,8 +52,9 @@ constructors for the class, you’ll also have to make sure to include a no-arg 
 
 Types map a single database column to a single, non-aggregated Java type. Here are some examples of basic types:
 
-
-
+|Java                  |JDBC    |Hibernate type    |Registry Key|
+|---                   |---     |---               |---    |
+|java.lang.String      |VARCHAR |StringType        |string |
 |java.lang.String      |NVARCHAR|StringNVarcharType|nstring|
 |int, java.lang.Integer|INTEGER |IntegerTypes      |int    |
 |long, java.lang.Long  |BIGINT  |LongType          |long   |
