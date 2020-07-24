@@ -146,17 +146,22 @@ As you can see, even though both users have the same original password, the hash
 ##### Points to Consider
 
 * In a web application, the Salting must be done on the Server.
-* While hashing user-passwords, the Salt should be generated randomly. It is preferable if the Salt is unique for each user's password.
-* For numeric Salt, it is good to use secure algorithms such as Cryptographically Secure Pseudo-Random Number Generator (CSPRNG) . Java has ```java.security.SecureRandom``` class for generating PRNG
+* While hashing user-passwords, the Salt should be generated randomly. It is preferable if the Salt is unique for each 
+user's password.
+* For numeric Salt, it is good to use secure algorithms such as Cryptographically Secure Pseudo-Random Number Generator 
+(CSPRNG) . Java has ```java.security.SecureRandom``` class for generating PRNG
 * For pseudo-random alpha-numeric string generator, you may use Apache class, as ```org.apache.commons.text.RandomStringGenerator```
 * When we use Salting, there are two separate steps involved - 
 
         (i) Generate the salted password, and
-        (ii) Verify the salted password. We would see the detailed implementation in the project, where we would implement bCrypt hashing algorithm along with Salting.
+        (ii) Verify the salted password. We would see the detailed implementation in the project, where we would 
+        implement bCrypt hashing algorithm along with Salting.
 
 ##### Implementing Hashing (SHA) along with Salting:
 
-In the following example, SHA-256 algorithm is used for hashing, and Salting is done by using an instance of ```java.security.SecureRandom``` class. For hashing, we can create an instance of ```java.security.MessageDigest``` to use any of the hashing algorithms SHA-1, SHA-256, SHA-512
+In the following example, SHA-256 algorithm is used for hashing, and Salting is done by using an instance of 
+```java.security.SecureRandom``` class. For hashing, we can create an instance of ```java.security.MessageDigest``` to 
+use any of the hashing algorithms SHA-1, SHA-256, SHA-512
 
 ```java
 
@@ -208,11 +213,52 @@ private static byte[] createSalt() {
 }
 ```
 
-Please note, if you wish to use bCrypt for hashing, you may use an instance of ```org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder``` class, which is a part of the Spring framework. We would see the implementation of bCrypt in our Spring Boot project. A sample snippet to understand the concept is given below:
+Please note, if you wish to use bCrypt for hashing, you may use an instance of 
+```org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder``` class, which is a part of the Spring framework. 
+We would see the implementation of bCrypt in our Spring Boot project. A sample snippet to understand the concept is 
+given below:
 
 ```java
 BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
   String securePassword = bCryptPasswordEncoder.encode("mySaltedPassword");
 ```
 
-In the above snippet, ```securePassword``` is the generated hash, and the ```mySaltedPassword``` is the String containing the actual password and the appended Salt. 
+In the above snippet, ```securePassword``` is the generated hash, and the ```mySaltedPassword``` is the String 
+containing the actual password and the appended Salt. 
+
+#### How to Pick a Good Hash Function
+
+A good hash function needs to be efficiently computable, so it needs to be reasonably fast. It needs to be uniform, 
+which means given an input the output needs to be as unique as possible. In other words, a low number of collisions 
+exists. A given output should give absolutely no indication of its input. Inputs should be effectively random and 
+uniformly distributed. Changing "cat" to "bat" should yield unpredictable results (this is known as the avalanche property)
+
+### Authorization
+
+Authorization concerns itself with permission and rights.
+
+#### RBAC
+
+In the video, the Instructor mentioned that authorization is usually implemented as Role-Based Access Control, which is 
+commonly abbreviated as RBAC. In RBAC, access is given based on a user's role—as a manager, engineer, customer service 
+representative, etc.
+
+Permissions can then be given (and limited) to users based on their roles. That way, each type of user only has limited 
+access—they are able to access only the specific things they need for their particular job.
+
+Authentication and authorization are different, yet related. You can't grant a right to a user (i.e., authorize that 
+user) without first knowing who that user is (i.e., by authenticating their identity).
+
+#### JWTs
+
+JSON Web Token (JWT) is an open standard RFC 7519, that defines a compact and self-contained way for securely transmitting information between parties as a JSON object.
+
+    JWTs are used for authentication and authorization in Spring Boot applications. RESTful APIs provide this functionality (authentication and authorization).
+    REST is an acronym for REpresentational State Transfer. It is a software-architectural style, in which there is a stateless communication between client and server.
+    Stateless means that the server does not have to store the user cookies or other session data for any incoming request. Rather, the server authenticates a user based on JWT.
+    RESTful APIs help to keep clients and server independent from each other. This way, a client from any platform (Java, .net, PHP, Android, or any other) can communicate (or request a resource) to the server having REST API endpoints.
+
+![Alt text](jwt-working.png?raw=true "JWT")
+
+The above diagram shows the usage of JWT for user authentication and authorization. A user can attempt to log in from any client. The server returns a JSON Web Token (JWT) upon successful validation of the user credentials. This JWT is then stored locally in the client. Later, when the user requests to access any protected resource, the server performs the JWT validation before granting access to the resource. This whole process is stateless, that the server does not store the user's session or cookies. 
+
