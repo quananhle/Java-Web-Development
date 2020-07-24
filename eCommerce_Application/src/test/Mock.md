@@ -9,7 +9,6 @@ Sometimes it is impossible or undesirable to directly work with a particular obj
 #### Few important methods and annotations provided by Mockito are:
 
 * ```mock()```/```@Mock``` - To create mock object. Here, ```mock()``` is an overloaded static method which accepts ```Class<T> classToMock``` as an argument and correspondingly returns a mock instance.
-
 * ```when()```/```given()``` - To specify the behaviour of mock object. ```when()``` method takes a particular method X as argument and set the expected (mocked) return value as Y. Following are the few examples:
 
 ```java
