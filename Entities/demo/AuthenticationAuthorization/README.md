@@ -73,4 +73,146 @@ Let there be a function f, which can generate unique hash values for a given set
 ##### Where to use Hashing in an Application?
 
 We use hashing to store any sensitive information in the system, such as user passwords.
+__________________________________________________
+Let's look at a simple example of hashing. Suppose that a user has the following password: ```passw0rd!```. If we directly store this text in the database, we will have a major security vulnerability.
 
+    passw0rd! → database (⚠️ Bad idea! ⚠️)
+
+So instead, we can first run the password through a one-way function that produces a jumbled up piece of text (which has no obvious discernible relationship to the original password). That jumbled up piece of text is the hash, and it might look something like this:
+
+    passw0rd! → hash function → @kdF3lkAWoLA
+
+So when the client interacts with the server, rather than directly sending the password, the client can instead send the hash:
+
+    passw0rd! → hashing function → @kdF3lkAWoLA → stored in database
+
+This way, if someone gains access to the database, they will still not have access to the plain-text password.
+_________________________________________________
+
+#### Some famous Hashing Algorithms
+
+There are many hashing algorithms prevalent in the industry.
+
+    MD5: The MD5 Message-Digest Algorithm is a hash function that accepts an input message of any length, and correspondingly produces a 128-bit (16-byte) hash value. Mostly, MD5 is used to verify data integrity. It was proposed by Ronal Rivest in 1992, as specified in RFC 1321. MD5 is comparatively unsafe, as it might get reversed by using brute-force-attack. Also, the chances of collision are very high in MD5. For non-critical applications, MD5 can be a good choice as it is computationally faster than other algorithms.
+
+    SHA: The SHA (Secure Hash Algorithm) is a set (SHA-0, SHA-1, SHA-2, and SHA-3) of cryptographic hash functions developed by the National Institute of Standards and Technology (NIST). In comparison to MD5, SHA generates secure hashes. SHA-1 is a 160-bit hash function. SHA-2 is further of two types: SHA-256 and SHA-512. SHA-256 is a 256-bit hash function that provides 128 bits of security in the case of collision attacks, while SHA-512 is a 512-bit hash function is designed for 256 bits of security. SHA-3 supports the same hash lengths as SHA-2. Chances of collision are high in SHA as well, but lesser than MD5. Thus, SHA-2 could be a good choice for general purpose application with a limited set of inputs, such as a University portal.
+
+    bCrypt: It is generally used to generate the hash for user-passwords. bCrypt is based on the Blowfish cipher algorithm. It has a crucial phase for key setup. This phase starts with encrypting a sub-key and uses the output of this encryption to change another sub-key. This way, the bCrypt involves iterative steps for generating the hash, making it a preferred choice of developers for critical applications.
+
+    sCrypt: It is a computationally intensive password-based key derivation function, proposed in 2016, as specified in RFC 7914. As part of the algorithm, it generates a large vector of pseudorandom bit strings. Thus, it requires a large amount of memory for computation. It isn't easy for a brute-force-attacker to reverse the hash, as it would involve a significantly high amount of time, memory, and a high number (billion) of attempts. Other password-based key derivation functions such as PBKDF1 and PBKDF2 have relatively low resource demands.
+
+#### Deep Dive Topics to Explore Further
+
+##### Collision
+
+In several scenarios, two different keys can generate the same hash. Such a scenario is called Collision. If we use a simple hash function, such as input length or sum of ASCII code of all characters, then it might lead to a collision. A collision can be resolved by using any of the following Collision Resolution Techniques:
+
+    Separate Chaining - It is a type of Open Hashing technique. The idea is to store the keys corresponding to collision (same) hash outputs in a Linked List. There would be a separate Linked List for each unique hash output.
+    Open Addressing - It is also called Closed Hashing. In this approach, for a given set of $n$ input keys, we take a data structure that can accommodate more than $n$ keys. The idea is to store the keys corresponding to collision (same) hash outputs in the next available slot in the data structure.
+        Linear or quadratic probing - Keep probing until an empty slot is found.
+        Double Hashing - We use two hash functions - one for hashing, and another for calculating the offset. Then, this offset is appended to the output of the first hash function. This way, the final output is expected to be collision-free value.
+
+The below diagram lists the approaches used for collision resolution.
+
+![Alt text](collisionresolutiontechniques.png?raw=true "Collision Resolution Techniques")
+
+#### Salting
+
+A salt is random data that is used as an additional input to a one-way function that "hashes" data, so that the final hash becomes more secure. Salting is an approach to generate two different hash values for two different users providing the same input.
+
+#### A Sample Scenario to Depict the Need for Salting
+
+Assume there are two users who might have the same password. For example, Alice and Bob, each with the password m1p2s9wo@d. According to a hash function, these two same input passwords would both map to a single output, say, q#az5sd%!24. Now, if the hash or corresponding password is compromised for one user, then the attacker would get access for another user as well. Salting then, prevents this by forcing each password to be unique in a way transparent to the user.
+
+#### How does Salting Works?
+
+Following figure explains the concept of Salting:
+
+![Alt text](salting.png?raw=true "Salting")
+
+In the above example, two users have the same password: ```m1p2s9wo@d```. Here's what happens if we run those passwords through a hash function:
+
+    User 1: m1p2s9wo@d → hash(m1p2s9wo@d) → q#az5sd%!24
+    User 2: m1p2s9wo@d → hash(m1p2s9wo@d) → q#az5sd%!24
+
+In the above case, we end up with the same hashed value for both users. But if we first add a salt, the result is different:
+
+    User 1: m1p2s9wo@d + AE1USR → hash(m1p2s9wo@dAE1USR) → A#bz5AA%Z24
+
+    User 2: m1p2s9wo@d + BB2USR → hash(m1p2s9wo@dBB2USR) → B#bz5BB%Z48
+
+As you can see, even though both users have the same original password, the hashes are different after salting.
+
+##### Points to Consider
+
+* In a web application, the Salting must be done on the Server.
+* While hashing user-passwords, the Salt should be generated randomly. It is preferable if the Salt is unique for each user's password.
+* For numeric Salt, it is good to use secure algorithms such as Cryptographically Secure Pseudo-Random Number Generator (CSPRNG) . Java has ```java.security.SecureRandom``` class for generating PRNG
+* For pseudo-random alpha-numeric string generator, you may use Apache class, as ```org.apache.commons.text.RandomStringGenerator```
+* When we use Salting, there are two separate steps involved - 
+
+        (i) Generate the salted password, and
+        (ii) Verify the salted password. We would see the detailed implementation in the project, where we would implement bCrypt hashing algorithm along with Salting.
+
+##### Implementing Hashing (SHA) along with Salting:
+
+In the following example, SHA-256 algorithm is used for hashing, and Salting is done by using an instance of ```java.security.SecureRandom``` class. For hashing, we can create an instance of ```java.security.MessageDigest``` to use any of the hashing algorithms SHA-1, SHA-256, SHA-512
+
+```java
+
+import java.security.SecureRandom;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.MessageDigest;
+
+public class SaltExample {
+
+public static void main(String[] args)throws NoSuchAlgorithmException, NoSuchProviderException {
+  String passwordToHash = "password";
+  byte[] salt = createSalt();
+
+  String securePassword = get_SecurePassword(passwordToHash, salt); 
+  System.out.println(securePassword); 
+ }
+
+
+// Method to generate the hash. 
+//It takes a password and the Salt as input arguments
+private static String get_SecurePassword(String passwordToHash, byte[] salt){
+  String generatedPassword = null;
+  try {
+   MessageDigest md = MessageDigest.getInstance("SHA-256");
+   md.update(salt);
+   byte[] bytes = md.digest(passwordToHash.getBytes());
+   StringBuilder sb = new StringBuilder();
+   for(int i=0; i< bytes.length ;i++)
+   {
+    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+   }
+   generatedPassword = sb.toString();
+  } 
+  catch (NoSuchAlgorithmException e) {
+   e.printStackTrace();
+  }
+  return generatedPassword;
+ } 
+
+// Method to generate a Salt
+private static byte[] createSalt() {
+  SecureRandom random = new SecureRandom();
+  byte[] salt = new byte[16];
+  random.nextBytes(salt);
+  return salt;
+ }
+
+}
+```
+
+Please note, if you wish to use bCrypt for hashing, you may use an instance of ```org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder``` class, which is a part of the Spring framework. We would see the implementation of bCrypt in our Spring Boot project. A sample snippet to understand the concept is given below:
+
+```java
+BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+  String securePassword = bCryptPasswordEncoder.encode("mySaltedPassword");
+```
+
+In the above snippet, ```securePassword``` is the generated hash, and the ```mySaltedPassword``` is the String containing the actual password and the appended Salt. 
