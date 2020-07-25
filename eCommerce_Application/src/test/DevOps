@@ -1,0 +1,29 @@
+### What is DevOps?
+
+DevOps is the combination of industry best practices, and set of tools that improves an organization’s ability to:
+
+    Increase the speed of software delivery
+    Increases the speed of software evolution
+    Have better reliability of the software
+    Have scalability using automation,
+    Improved collaboration among teams.
+
+#### In other words, these tools enable a company to showcase industry best practices in software development.
+
+In the DevOps model, development and operations teams are merged into a single team. These DevOps teams use a few tools and best practices to accomplish their goals efficiently. Some of these best practices are:
+
+    Continuous Integration / Continuous Delivery (CI/CD)
+    Microservices
+    Infrastructure as Code (IaaC) - Configuration Management and Policy as a Code
+    Monitoring and Logging
+    Communication and Collaboration
+
+#### What is CI/CD?
+
+CI/CD stands for Continuous Integration/Continuous Delivery , and it is essentially a consistent and automated way for a DevOps team to build, package, and test applications.
+
+    Continuous Integration means newly developed code changes of a project are regularly built, tested, and merged to a shared repository like git.
+
+    Continuous Delivery is the process of automating the release of the merged and validated code to a repository and finally release a production-ready build to the production environment.
+
+As shown in the figure above, CI/CD Pipeline implementation, is the backbone of the modern DevOps environment. It bridges the gap between development and operations teams by automating the building, testing, and deployment of applications.
