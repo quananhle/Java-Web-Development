@@ -27,3 +27,23 @@ CI/CD stands for Continuous Integration/Continuous Delivery , and it is essentia
     Continuous Delivery is the process of automating the release of the merged and validated code to a repository and finally release a production-ready build to the production environment.
 
 As shown in the figure above, CI/CD Pipeline implementation, is the backbone of the modern DevOps environment. It bridges the gap between development and operations teams by automating the building, testing, and deployment of applications.
+
+![Alt text](images.png?raw=true "A CI/CD Pipeline under DevOps model to show quick delivery and evolution of software")
+
+![Alt text](CI_CD.png?raw=true "A CI/CD Pipeline under DevOps model to show quick delivery and evolution of software")
+
+### Docker
+
+Docker is a tool that helps to create "images". An "image" (or Docker image) is a portable package that contains the application and its dependencies. An "image" can be instantiated multiple numbers of times to create "containers".
+
+#### Containers
+
+OS level virtualization allows us to run multiple isolated user-space instances in parallel. A "container" (or Docker container) is the isolated user-space instance that has the application code, the required dependencies, and the necessary runtime environment to run the application. Containers can dash on heterogeneous platforms.
+
+#### Benefit of Containers
+
+    Docker images make it easier for developers to create, deploy, and run applications on different hardware and platforms, quickly and easily. Docker has become an essential tool in CI/CD pipeline as it allows software developers a consistent and automated way to build, package, and test applications.
+    
+    Containers share a single kernel and share application libraries.
+    
+    Containers cause a lower system overhead as compared to Virtual Machines.
