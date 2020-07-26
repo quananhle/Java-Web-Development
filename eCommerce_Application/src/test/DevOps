@@ -47,3 +47,27 @@ OS level virtualization allows us to run multiple isolated user-space instances 
     Containers share a single kernel and share application libraries.
     
     Containers cause a lower system overhead as compared to Virtual Machines.
+
+##### Installing and Using Docker
+
+We will deploy our application on a Virtual Machine (VM) on Amazon Web Service (AWS) cloud. The VM that we will use would be a Linux machine having the Docker package already available on it. The following are the commands to install Docker on a Linux machine:
+
+```shell script
+# download and install Docker
+sudo yum install docker
+
+# add a user group to Docker
+sudo usermod -a -G docker $USER
+
+# start Docker service
+sudo service docker start
+```
+
+Alternatively, if you wish to install ```Docker``` locally, you can refer to the official "Download and Install" section. The following are basic commands used with Docker:
+
+* ```docker build .``` will run the Dockerfile to create an image. A Dockerfile is a text file that contains commands as a step-by-step recipe on how to build up your image. In our case, we would not use a Dockerfile because we will use a pre-created ```jenkinsci/blueocean``` image to instantiate a container. For more details about Dockerfile, refer the Build and run your image page.
+* ```docker images``` will print all the available images
+* ```docker run {IMAGE_ID}``` will run a container with the image
+* ```docker exec -it sh``` to attach to a container
+* ```docker ps``` will print all the running containers
+* ```docker kill {CONTAINER_ID}``` will terminate the container
