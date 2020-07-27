@@ -50,6 +50,8 @@ OS level virtualization allows us to run multiple isolated user-space instances 
 
 ##### Installing and Using Docker
 
+![Alt text](java/Docker.png?raw=true "Docker")
+
 We will deploy our application on a Virtual Machine (VM) on Amazon Web Service (AWS) cloud. The VM that we will use would be a Linux machine having the Docker package already available on it. The following are the commands to install Docker on a Linux machine:
 
 ```shell script
@@ -71,3 +73,93 @@ Alternatively, if you wish to install ```Docker``` locally, you can refer to the
 * ```docker exec -it sh``` to attach to a container
 * ```docker ps``` will print all the running containers
 * ```docker kill {CONTAINER_ID}``` will terminate the container
+
+#### Key Terms - Docker
+
+This is additional learning so that you stay aware of key terminologies of Docker.
+
+|                  |                                                                                                                                                      |  
+|---               |---                                                                                                                                                   |
+|Term              | 	            Definition                                                                                                                            |
+|Base Image        | 	A set of common dependencies built into a Docker image that acts as a starting point to build an application’s Docker images to reduce build times|
+|Container         | 	Grouped software dependencies and packages that make it easier and more reliable to deploy software                                               |
+|Container Registry| 	A centralized place to store container images                                                                                                     |    
+|Docker-compose    | 	A tool used to run multiple Docker containers at once; often used to specify dependent relationships between containers                           |
+|Dockerfile        | 	A file containing instructions on how to translate an application into an image that can be run in containers                                     |
+|Ephemeral         | 	Software property where an application is expected to be short-lived                                                                              |
+|Image             | 	A snapshot of dependencies and code used by Docker containers to run an application                                                               |
+
+![Alt text](java/Docker_apps.png?raw=true "Docker")
+
+### Jenkins - Introduction
+
+```Jenkins``` is an open-source automation server written in the Java programming language. Jenkins helps to automate a few aspects related to building, testing, and delivering or deploying software. There are many more other frameworks available in the market, as listed here.
+
+In our case, we need to integrate Jenkins with AWS to trigger the CI/CD pipeline automatically whenever code changes pushed to our GitHub repository. This automation would require us to link our Git repository to Jenkins. 
+
+![Alt text](java/ci-cd-pipeline.png?raw=true "Docker")
+    
+    A CI/CD Pipeline showing the role of Jenkins automation server taking care of three different environments - Development, Staging, and Deployment. Ansible is useful only in large scale applications
+
+#### Jenkins Pipeline
+
+Jenkins Pipeline is a set of plugins that assist in achieving continuous delivery. Jenkins is highly modular and supports a multitude of plugins. Plugins extend Jenkins with additional features to support various requirements.
+
+#### Prerequisite to Install Jenkins
+
+You can install Jenkins using native system packages, Docker, or run on any machine having a Java Runtime Environment (JRE) available on it. But in our case, Jenkins will be automatically installed on an AWS EC2 instance when we will instantiate a container using a pre-created image jenkinsci/blueocean by running docker run command in our demo.
+
+Once the container is instantiated, we will access (from the browser) the EC2 instance to configure the Jenkins Pipeline. You can refer to "Logging into Jenkins using GUI" section below that we will demonstrate in the video on the next page "Bringing it all together".
+
+#### Additional Knowledge - What is Jenkinsfile?
+
+A Jenkins Pipeline is defined using a text file called Jenkinsfile. This text file is stored in the application’s Source Control Repository e.g., Github. Storing the Jenkinsfile into a source control repository makes it possible to review and audit collaboratively. A Jenkinsfile can be written using either of the two types of syntax - Declarative and Scripted. The following is an example file:
+
+```
+Jenkinsfile (Declarative Pipeline)
+pipeline {
+    agent { docker { image 'maven:3.3.3' } }
+    stages {
+        stage('build') {
+            steps {
+                sh 'mvn --version'
+            }
+        }
+    }
+}
+```
+
+##### Additional Knowledge - Install Jenkins on Linux Instance
+
+```shell script
+# Step 1 - Update existing packages
+sudo apt-get update
+
+# Step 2 - Install Java
+sudo apt install -y default-jdk
+
+# Step 3 - Download Jenkins package. 
+# You can go to http://pkg.jenkins.io/debian/ to see the available commands
+# First, add a key to your system
+wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+
+# # Step 4 - Add the following entry in your /etc/apt/sources.list:
+sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+
+# # Step 5 -Update your local package index
+sudo apt-get update
+
+# Step 6 - Install Jenkins
+sudo apt-get install -y jenkins
+
+# Step 7 - Start the Jenkins server
+sudo systemctl start jenkins
+
+# Step 8 - Enable the service to load during boot
+sudo systemctl enable jenkins
+sudo systemctl status jenkins
+```
+
+The ```sudo``` command allows us to run a command as root. The apt utility is for installing software. It is a package manager and performs dependency resolution to install the supporting libraries for the end user. A package manager facilitates easy installation, upgrading, and management of software on a computer. The ```-y``` option for ```apt``` enables it to automatically select the “yes” option to install the software and prevents prompting of the end user. You will observe in the step which adds “jenkins.list” that we are adding an additional software repository source from where our Linux computer will be able to install the software. This is referred to as an Apt Package Repo.
+
+![Alt text](java/CI-CD_Deployed.png?raw=true "Bring it all together")
