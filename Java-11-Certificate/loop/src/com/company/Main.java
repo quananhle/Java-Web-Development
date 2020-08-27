@@ -29,7 +29,7 @@ public class Main {
         var whileCounter = 0;
         while (whileCounter < months.length) {
             if (whileCounter == months.length - 1) {
-                System.out.print(months[whileCounter] +".");
+                System.out.print(months[whileCounter] + ".");
             }
             else {
                 System.out.print(months[whileCounter] +", ");
