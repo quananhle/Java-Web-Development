@@ -11,6 +11,7 @@ public class Main {
     static Integer[] intArray = {1, 2, 3, 4, 5};
     static Boolean[] boolArray = {true, false, true};
 
+    //generic method
     public static <T> List<T> arrayToList(T[] array, List<T> list) {
         for (T object : array) {
             list.add(object);
