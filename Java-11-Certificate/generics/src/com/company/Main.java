@@ -1,5 +1,8 @@
 package com.company;
 
+import com.company.wildcards.Building;
+import com.company.wildcards.House;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +25,18 @@ public class Main {
             System.out.println(i+1 + ": " + items[i]);
         }
         System.out.println("\n");
+    }
+
+    //wildcards
+    static void displayBuildings(List<? extends Building> buildings) {
+        for (int i = 0; i < buildings.size(); i++) {
+            System.out.println(buildings.get(i).toString() + " " + (i + 1));
+        }
+        System.out.print("\n");
+    }
+    static void addHouses(List<? super House> buildings) {
+        buildings.add(new House());
+        System.out.print("\n");
     }
 
     public static void main(String[] args) {
