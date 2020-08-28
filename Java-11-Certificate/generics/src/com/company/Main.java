@@ -8,8 +8,8 @@ public class Main {
     static Integer[] intArray = {1, 2, 3, 4, 5};
     static Boolean[] boolArray = {true, false, true};
 
-    public static List arrayToList(Object[] array, List<Object> list) {
-        for (Object object : array) {
+    public static <T> List<T> arrayToList(T[] array, List<T> list) {
+        for (T object : array) {
             list.add(object);
         }
         return list;
@@ -19,5 +19,6 @@ public class Main {
 	    List<Character> characterList = arrayToList(charArray, new ArrayList<>());
         List<Boolean> booleanList = arrayToList(boolArray, new ArrayList<>());
         List<Integer> integerList = arrayToList(intArray, new ArrayList<>());
+        System.out.println(integerList.get(0));
     }
 }
