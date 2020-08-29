@@ -11,7 +11,14 @@ public class Streams {
         }).filter(book -> {
             return book.getTitle().startsWith("T");
         }).forEach(System.out::println);
+        //parallel streams
+        //only efficient on very large dataset
+        books.parallelStream().filter(book -> {
+            return book.getAuthor().startsWith("H");
+        }).forEach(System.out::println);
     }
+
+
 
     static ArrayList<Book> populateLibrary() {
         ArrayList<Book> books = new ArrayList<>();
