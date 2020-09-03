@@ -10,7 +10,7 @@ public class MenuManagementSteps {
 	RestaurantMenuItem NewMenuItem;
 	RestaurantMenu LocationMenu = new RestaurantMenu();
 	
-	@Given("I have a menu item with name {string} and price {int}")
+	@Given("I have a menu item with name \"([^\"]\" and price ([$]*)(\\d+)")
 	public void i_have_menu_item_with_name_and_price(String newMenuItemName, Integer price) {
 		NewMenuItem = new RestaurantMenuItem(newMenuItemName, newMenuItemName, price);
 		System.out.println("Step 1");
